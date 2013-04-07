@@ -198,6 +198,7 @@ Public Class CSVFile
                 L.Columns.Add(R(C.ColumnName).ToString)
             Next
             CSVF.Lines.Add(L)
+
         Next
         Return CSVF
     End Function
