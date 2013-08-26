@@ -18,8 +18,11 @@
 ' * == END LICENSE ==
 ' */
 
+Imports CsvHelper.Configuration
+Imports CsvHelper
 Imports Microsoft.VisualBasic
 Imports System.IO
+Imports Microsoft.VisualBasic.FileIO.TextFieldParser
 
 Public Class CSVFile
     Public Class CSVLine
@@ -102,7 +105,7 @@ Public Class CSVFile
         Dim sb As New System.Text.StringBuilder
         Dim Line As CSVLine
 
-        For Each line In Lines
+        For Each Line In Lines
             sb.AppendLine(Line.GetCSVLine(ColumnDelimiter))
         Next
         Return sb.ToString
@@ -125,6 +128,41 @@ Public Class CSVFile
         Return LoadFromFileData(SR, ColDelimiter)
     End Function
     Public Shared Function LoadFromFileData(ByVal ReadFile As StreamReader, Optional ByVal ColDelimiter As String = ",") As CSVFile
+        Dim CSVF As New CSVFile
+        CSVF.ColumnDelimiter = ColDelimiter
+
+        Dim parser = New CsvParser(ReadFile, New CsvConfiguration With {.Delimiter = ColDelimiter})
+        While (True)
+            Dim line = parser.Read()
+
+            If (line Is Nothing) Then
+                Exit While
+            Else
+                CSVF.Lines.Add(New CSVLine(line.ToList))
+            End If
+
+        End While
+        Return CSVF
+
+        'Dim afile As FileIO.TextFieldParser = New FileIO.TextFieldParser(ReadFile)
+        'Dim CurrentRecord As String() ' this array will hold each line of data
+        'afile.TextFieldType = FileIO.FieldType.Delimited
+        'afile.Delimiters = New String() {ColDelimiter}
+        'afile.HasFieldsEnclosedInQuotes = True
+
+        '' parse the actual file
+        'Do While Not afile.EndOfData
+        '    Try
+        '        CurrentRecord = afile.ReadFields
+        '        CSVF.Lines.Add(New CSVLine(CurrentRecord.ToList))
+
+        '    Catch ex As FileIO.MalformedLineException
+        '        Stop
+        '    End Try
+        'Loop
+    End Function
+
+    Public Shared Function LoadFromFileDataOld(ByVal ReadFile As StreamReader, Optional ByVal ColDelimiter As String = ",") As CSVFile
         'Dim FileHolder As FileInfo = New FileInfo(strPath)
         'Dim ReadFile As StreamReader = FileHolder.OpenText()
         Dim strLine As String = "start"

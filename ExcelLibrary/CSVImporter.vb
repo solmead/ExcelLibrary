@@ -10,16 +10,20 @@ Public Class CSVImporter
         Dim headerLineNumber = 0
         Dim propList = GetPropertyNames(item)
         Dim cnt = 0
-        While (headerLineNumber = 0 AndAlso cnt < file.Lines.Count)
+        Dim fnd = False
+        While (headerLineNumber = 0 AndAlso cnt < file.Lines.Count) AndAlso Not fnd
             Dim line = file.Lines(cnt)
             For Each col In line.Columns
-                If (propList.Contains(col.Trim()) OrElse columnMapping.ContainsKey(col.Trim())) Then
+
+                If ((From p In propList Where p.Trim.ToUpper = col.Trim.ToUpper Select p).Any) OrElse columnMapping.ContainsKey(col.Trim()) Then
                     headerLine = line
                     headerLineNumber = cnt
+                    fnd = True
                 End If
             Next
             cnt += 1
         End While
+        Debug.WriteLine("Header Line Number = " & headerLineNumber)
         Dim itemList = New List(Of tt)()
         For row = headerLineNumber + 1 To file.Lines.Count - 1
             item = getNewObject()
@@ -59,7 +63,7 @@ Public Class CSVImporter
                     End If
 
                 ElseIf (headCol <> "") Then
-                    Throw New Exception("Column Not Handled: [" + headCol + "]")
+                    'Throw New Exception("Column Not Handled: [" + headCol + "]")
                 End If
             Next
 
