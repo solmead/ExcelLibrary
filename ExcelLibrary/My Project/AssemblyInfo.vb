@@ -9,11 +9,11 @@ Imports System.Runtime.InteropServices
 ' Review the values of the assembly attributes
 
 <Assembly: AssemblyTitle("ExcelLibrary")> 
-<Assembly: AssemblyDescription("")> 
-<Assembly: AssemblyCompany("")> 
+<Assembly: AssemblyDescription("CSV / Excel Handling")> 
+<Assembly: AssemblyCompany("Solmead Productions")> 
 <Assembly: AssemblyProduct("ExcelLibrary")> 
-<Assembly: AssemblyCopyright("Copyright ©  2012")> 
-<Assembly: AssemblyTrademark("")> 
+<Assembly: AssemblyCopyright("Copyright ©  2013")> 
+<Assembly: AssemblyTrademark("Solmead Productions")> 
 
 <Assembly: ComVisible(False)>
 
