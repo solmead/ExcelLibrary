@@ -18,10 +18,12 @@
 ' * == END LICENSE ==
 ' */
 
+Imports Microsoft.VisualBasic.CompilerServices
 Imports CsvHelper.Configuration
 Imports CsvHelper
 Imports Microsoft.VisualBasic
 Imports System.IO
+Imports System.Linq.Dynamic
 Imports Microsoft.VisualBasic.FileIO.TextFieldParser
 
 Public Class CSVFile
@@ -217,6 +219,10 @@ Public Class CSVFile
         ReadFile.Close()
         ReadFile = Nothing
         Return CSVF
+    End Function
+    Public Shared Function LoadFromIEnumerable(ByVal list As IEnumerable, Optional ByVal HasHeader As Boolean = True) As CSVFile
+        Dim olist As List(Of Object) = (From i In list Select i).ToList
+        Return LoadFromDataTable(olist.ToDataTable, HasHeader)
     End Function
     Public Shared Function LoadFromDataTable(ByVal DT As DataTable, Optional ByVal HasHeader As Boolean = True) As CSVFile
 

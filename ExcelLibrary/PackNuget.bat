@@ -1,1 +1,1 @@
-"..\.nuget\nuget\" pack ExcelLibrary.vbproj -IncludeReferencedProjects
+"..\.nuget\nuget" pack ExcelLibrary.vbproj -IncludeReferencedProjects
