@@ -220,9 +220,9 @@ Public Class CSVFile
         ReadFile = Nothing
         Return CSVF
     End Function
-    Public Shared Function LoadFromIEnumerable(ByVal list As IEnumerable, Optional ByVal HasHeader As Boolean = True) As CSVFile
+    Public Shared Function LoadFromIEnumerable(ByVal list As IEnumerable, Optional ByVal HasHeader As Boolean = True, Optional useDisplayName As Boolean = False) As CSVFile
         Dim olist As List(Of Object) = (From i In list Select i).ToList
-        Return LoadFromDataTable(olist.ToDataTable, HasHeader)
+        Return LoadFromDataTable(olist.ToDataTable(useDisplayName), HasHeader)
     End Function
     Public Shared Function LoadFromDataTable(ByVal DT As DataTable, Optional ByVal HasHeader As Boolean = True) As CSVFile
 

@@ -6,7 +6,7 @@ LinqDynamic
 </name>
 </assembly>
 <members>
-<member name="M:System.Linq.Dynamic.DynamicQueryable.ToDataTable``1(System.Collections.Generic.IEnumerable{``0})">
+<member name="M:System.Linq.Dynamic.DynamicQueryable.ToDataTable``1(System.Collections.Generic.IEnumerable{``0},System.Boolean)">
 	<summary>
  Creates a <see cref="T:System.Data.DataTable"/> that contains the data from a source sequence.
  </summary>

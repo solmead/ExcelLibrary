@@ -63,9 +63,9 @@
     <Reference Include="CsvHelper">
       <HintPath>..\..\ActiveRecordMembership\packages\CsvHelper.2.2.2\lib\net40-client\CsvHelper.dll</HintPath>
     </Reference>
-    <Reference Include="LinqDynamic, Version=1.9.5016.17662, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="LinqDynamic, Version=1.9.5030.23252, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\LinqDynamic.1.9.5016.17662\lib\net35\LinqDynamic.dll</HintPath>
+      <HintPath>..\packages\LinqDynamic.1.9.5030.23252\lib\net40\LinqDynamic.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
