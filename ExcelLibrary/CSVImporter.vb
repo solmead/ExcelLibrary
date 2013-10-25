@@ -29,42 +29,62 @@ Public Class CSVImporter
             item = getNewObject()
             Dim line = file.Lines(row)
             For col = 0 To line.Columns.Count
-                Dim headCol = headerLine.Column(col).Trim()
-                Dim column = line.Column(col)
-                If (columnMapping.ContainsKey(headCol)) Then
-                    headCol = columnMapping(headCol)
-                End If
-                If (DoesPropertyExist(item, headCol)) Then
-                    Dim tpe = GetPropertyType(item, headCol)
-                    Dim tName = tpe.FullName.ToUpper()
-                    If (tName.Contains("DATETIME")) Then
-                        Dim v As Date
-                        DateTime.TryParse(column, v)
-                        SetValue(item, headCol, v)
-                    ElseIf (tName.Contains("BOOL")) Then
-                        column = column.ToUpper().Replace("YES", "TRUE").Replace("NO", "FALSE").Replace("0", "FALSE").
-                                Replace("1", "TRUE")
-                        Dim v As Boolean
-                        Boolean.TryParse(column, v)
-                        SetValue(item, headCol, v)
-                    ElseIf (tName.Contains("INT") OrElse tName.Contains("FLOAT") OrElse tName.Contains("DOUBLE") OrElse tName.Contains("LONG")) Then
-                        column = column.Replace("$", "").Replace(",", "")
-                        Dim v As Double
-                        Double.TryParse(column, v)
-                        SetValue(item, headCol, v)
-                    ElseIf (tName.Contains("DECIMAL")) Then
-                        column = column.Replace("$", "").Replace(",", "")
-                        Dim v As Decimal
-                        Decimal.TryParse(column, v)
-                        SetValue(item, headCol, v)
-                    Else
-                        Dim v = Convert.ChangeType(column, tpe)
-                        SetValue(item, headCol, v)
-                    End If
+                Try
 
-                ElseIf (headCol <> "") Then
-                    'Throw New Exception("Column Not Handled: [" + headCol + "]")
-                End If
+                    Dim headCol = headerLine.Column(col).Trim()
+                    Dim column = line.Column(col)
+                    If (columnMapping.ContainsKey(headCol)) Then
+                        headCol = columnMapping(headCol)
+                    End If
+                    If (DoesPropertyExist(item, headCol)) Then
+                        Dim tpe = GetPropertyType(item, headCol)
+                        Dim tName = tpe.FullName.ToUpper()
+                        If (tName.Contains("DATETIME")) Then
+                            Dim v As Date
+                            DateTime.TryParse(column, v)
+                            SetValue(item, headCol, v)
+                        ElseIf (tName.Contains("BOOL")) Then
+                            column = column.ToUpper().Replace("YES", "TRUE").Replace("NO", "FALSE").Replace("0", "FALSE").
+                                    Replace("1", "TRUE")
+                            Dim v As Boolean
+                            Boolean.TryParse(column, v)
+                            SetValue(item, headCol, v)
+                        ElseIf (tName.Contains("INT")) Then
+                            column = column.Replace("$", "").Replace(",", "")
+                            Dim v As Double
+                            Double.TryParse(column, v)
+                            SetValue(item, headCol, CInt(v))
+                        ElseIf (tName.Contains("FLOAT")) Then
+                            column = column.Replace("$", "").Replace(",", "")
+                            Dim v As Single
+                            Single.TryParse(column, v)
+                            SetValue(item, headCol, v)
+                        ElseIf (tName.Contains("DOUBLE")) Then
+                            column = column.Replace("$", "").Replace(",", "")
+                            Dim v As Double
+                            Double.TryParse(column, v)
+                            SetValue(item, headCol, v)
+                        ElseIf (tName.Contains("LONG")) Then
+                            column = column.Replace("$", "").Replace(",", "")
+                            Dim v As Double
+                            Double.TryParse(column, CLng(v))
+                            SetValue(item, headCol, v)
+                        ElseIf (tName.Contains("DECIMAL")) Then
+                            column = column.Replace("$", "").Replace(",", "")
+                            Dim v As Decimal
+                            Decimal.TryParse(column, v)
+                            SetValue(item, headCol, v)
+                        Else
+                            Dim v = Convert.ChangeType(column, tpe)
+                            SetValue(item, headCol, v)
+                        End If
+
+                    ElseIf (headCol <> "") Then
+                        'Throw New Exception("Column Not Handled: [" + headCol + "]")
+                    End If
+                Catch ex As Exception
+
+                End Try
             Next
 
             itemList.Add(item)
