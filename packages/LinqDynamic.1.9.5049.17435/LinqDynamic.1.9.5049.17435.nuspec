@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
+  <metadata>
+    <id>LinqDynamic</id>
+    <version>1.9.5049.17435</version>
+    <title>LinqDynamic</title>
+    <authors>Solmead Productions</authors>
+    <owners>Solmead Productions</owners>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>Allows string querying of iQueryable objects, and turning List into Datatables and back.</description>
+    <releaseNotes>Initial release.</releaseNotes>
+    <copyright>Copyright 2012</copyright>
+    <tags>Linq</tags>
+  </metadata>
+</package>
