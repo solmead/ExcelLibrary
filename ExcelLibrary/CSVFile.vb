@@ -246,7 +246,34 @@ Public Class CSVFile
         Next
         Return CSVF
     End Function
+    Public Function ToDataTable(Optional hasHeader As Boolean = True, Optional headerLine As Integer = 0) As DataTable
+        Dim maxcolumns = (From l In Lines Select l.Columns.Count).Max()
+        Dim table = New DataTable()
 
+        For cnt = 0 To maxcolumns - 1
+            Dim colName = ""
+            If hasHeader Then
+                colName = Lines(headerLine).Column(cnt)
+            End If
+            If String.IsNullOrWhiteSpace(colName) Then
+                colName = "Column_" & cnt
+            End If
+            table.Columns.Add(colName)
+        Next
+        Dim srow = 0
+        If hasHeader Then
+            srow = headerLine + 1
+        End If
+        For cnt = srow To Lines.Count - 1
+            Dim row = table.NewRow
+            For cnum = 0 To maxcolumns - 1
+                row(cnum) = Lines(cnt).Column(cnum)
+            Next
+            table.Rows.Add(row)
+        Next
+
+        Return table
+    End Function
 
 
     Private Shared Function ParseCSVLine(ByVal CSVstr As String, Optional ByVal ColDelimiter As String = ",") As List(Of String)
