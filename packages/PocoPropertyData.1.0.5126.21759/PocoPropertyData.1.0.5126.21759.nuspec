@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
+  <metadata>
+    <id>PocoPropertyData</id>
+    <version>1.0.5126.21759</version>
+    <title>PocoPropertyData</title>
+    <authors>Solmead Productions</authors>
+    <owners>Solmead Productions</owners>
+    <licenseUrl>https://github.com/solmead/PocoPropertyData</licenseUrl>
+    <projectUrl>https://github.com/solmead/PocoPropertyData</projectUrl>
+    <iconUrl>https://github.com/solmead/PocoPropertyData</iconUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>Poco Property Extender</description>
+    <releaseNotes>SInitial Release.</releaseNotes>
+    <copyright>Copyright 2014</copyright>
+  </metadata>
+</package>

@@ -2119,6 +2119,12 @@
             <param name="type">The type of the record.</param>
             <param name="records">The list of records to write.</param>
         </member>
+        <member name="M:CsvHelper.ICsvWriter.WriteRecords(System.Collections.IEnumerable)">
+            <summary>
+            Writes the list of records to the CSV file.
+            </summary>
+            <param name="records">The list of records to write.</param>
+        </member>
         <member name="M:CsvHelper.ICsvWriter.ClearRecordCache``1">
             <summary>
             Clears the record cache for the given type. After <see cref="M:CsvHelper.ICsvWriter.WriteRecord``1(``0)"/> is called the
@@ -2269,6 +2275,12 @@
             Writes the list of records to the CSV file.
             </summary>
             <param name="type">The type of the record.</param>
+            <param name="records">The list of records to write.</param>
+        </member>
+        <member name="M:CsvHelper.CsvWriter.WriteRecords(System.Collections.IEnumerable)">
+            <summary>
+            Writes the list of records to the CSV file.
+            </summary>
             <param name="records">The list of records to write.</param>
         </member>
         <member name="M:CsvHelper.CsvWriter.ClearRecordCache``1">
@@ -3047,6 +3059,28 @@
               <c>true</c> if this instance [can convert from] the specified type; otherwise, <c>false</c>.
             </returns>
         </member>
+        <member name="T:CsvHelper.TypeConversion.TimeSpanConverter">
+            <summary>
+            Converts a TimeSpan to and from a string.
+            </summary>
+        </member>
+        <member name="M:CsvHelper.TypeConversion.TimeSpanConverter.CanConvertFrom(System.Type)">
+            <summary>
+            Determines whether this instance [can convert from] the specified type.
+            </summary>
+            <param name="type">The type.</param>
+            <returns>
+              <c>true</c> if this instance [can convert from] the specified type; otherwise, <c>false</c>.
+            </returns>
+        </member>
+        <member name="M:CsvHelper.TypeConversion.TimeSpanConverter.ConvertFromString(CsvHelper.TypeConversion.TypeConverterOptions,System.String)">
+            <summary>
+            Converts the string to an object.
+            </summary>
+            <param name="options">The options to use when converting.</param>
+            <param name="text">The string to convert to an object.</param>
+            <returns>The object created from the string.</returns>
+        </member>
         <member name="T:CsvHelper.TypeConversion.TypeConverterFactory">
             <summary>
             Creates <see cref="T:CsvHelper.TypeConversion.ITypeConverter"/>s.
@@ -3110,6 +3144,11 @@
         <member name="P:CsvHelper.TypeConversion.TypeConverterOptions.DateTimeStyle">
             <summary>
             Gets or sets the date time style.
+            </summary>
+        </member>
+        <member name="P:CsvHelper.TypeConversion.TypeConverterOptions.TimeSpanStyle">
+            <summary>
+            Gets or sets the time span style.
             </summary>
         </member>
         <member name="P:CsvHelper.TypeConversion.TypeConverterOptions.NumberStyle">

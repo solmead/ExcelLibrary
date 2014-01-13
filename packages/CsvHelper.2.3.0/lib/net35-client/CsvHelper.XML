@@ -409,6 +409,14 @@
             <param name="message">The error message that explains the reason for the exception.</param>
             <param name="innerException">The exception that is the cause of the current exception, or a null reference (Nothing in Visual Basic) if no inner exception is specified.</param>
         </member>
+        <member name="M:CsvHelper.CsvHelperException.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+            <summary>
+            Initializes a new instance of the <see cref="T:CsvHelper.CsvHelperException"/> class
+            with serialized data.
+            </summary>
+            <param name="info">The <see cref="T:System.Runtime.Serialization.SerializationInfo"/> that holds the serialized object data about the exception being thrown.</param>
+            <param name="context">The <see cref="T:System.Runtime.Serialization.StreamingContext"/> that contains contextual information about the source or destination.</param>
+        </member>
         <member name="M:CsvHelper.Configuration.CsvConfigurationException.#ctor">
             <summary>
             Initializes a new instance of the <see cref="T:CsvHelper.Configuration.CsvConfigurationException"/> class.
@@ -429,6 +437,14 @@
             </summary>
             <param name="message">The error message that explains the reason for the exception.</param>
             <param name="innerException">The exception that is the cause of the current exception, or a null reference (Nothing in Visual Basic) if no inner exception is specified.</param>
+        </member>
+        <member name="M:CsvHelper.Configuration.CsvConfigurationException.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+            <summary>
+            Initializes a new instance of the <see cref="T:CsvHelper.Configuration.CsvConfigurationException"/> class
+            with serialized data.
+            </summary>
+            <param name="info">The <see cref="T:System.Runtime.Serialization.SerializationInfo"/> that holds the serialized object data about the exception being thrown.</param>
+            <param name="context">The <see cref="T:System.Runtime.Serialization.StreamingContext"/> that contains contextual information about the source or destination.</param>
         </member>
         <member name="T:CsvHelper.Configuration.CsvPropertyMap">
             <summary>
@@ -892,6 +908,14 @@
             <param name="message">The error message that explains the reason for the exception.</param>
             <param name="innerException">The exception that is the cause of the current exception, or a null reference (Nothing in Visual Basic) if no inner exception is specified.</param>
         </member>
+        <member name="M:CsvHelper.CsvBadDataException.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+            <summary>
+            Initializes a new instance of the <see cref="T:CsvHelper.CsvHelperException"/> class
+            with serialized data.
+            </summary>
+            <param name="info">The <see cref="T:System.Runtime.Serialization.SerializationInfo"/> that holds the serialized object data about the exception being thrown.</param>
+            <param name="context">The <see cref="T:System.Runtime.Serialization.StreamingContext"/> that contains contextual information about the source or destination.</param>
+        </member>
         <member name="T:CsvHelper.CsvMissingFieldException">
             <summary>
             Represents an error caused because a field is missing
@@ -924,6 +948,14 @@
             <param name="message">The error message that explains the reason for the exception.</param>
             <param name="innerException">The exception that is the cause of the current exception, or a null reference (Nothing in Visual Basic) if no inner exception is specified.</param>
         </member>
+        <member name="M:CsvHelper.CsvReaderException.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+            <summary>
+            Initializes a new instance of the <see cref="T:CsvHelper.CsvReaderException"/> class
+            with serialized data.
+            </summary>
+            <param name="info">The <see cref="T:System.Runtime.Serialization.SerializationInfo"/> that holds the serialized object data about the exception being thrown.</param>
+            <param name="context">The <see cref="T:System.Runtime.Serialization.StreamingContext"/> that contains contextual information about the source or destination.</param>
+        </member>
         <member name="M:CsvHelper.CsvMissingFieldException.#ctor">
             <summary>
             Initializes a new instance of the <see cref="T:CsvHelper.CsvMissingFieldException"/> class.
@@ -944,6 +976,14 @@
             </summary>
             <param name="message">The error message that explains the reason for the exception.</param>
             <param name="innerException">The exception that is the cause of the current exception, or a null reference (Nothing in Visual Basic) if no inner exception is specified.</param>
+        </member>
+        <member name="M:CsvHelper.CsvMissingFieldException.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+            <summary>
+            Initializes a new instance of the <see cref="T:CsvHelper.CsvMissingFieldException"/> class
+            with serialized data.
+            </summary>
+            <param name="info">The <see cref="T:System.Runtime.Serialization.SerializationInfo"/> that holds the serialized object data about the exception being thrown.</param>
+            <param name="context">The <see cref="T:System.Runtime.Serialization.StreamingContext"/> that contains contextual information about the source or destination.</param>
         </member>
         <member name="T:CsvHelper.CsvParser">
             <summary>
@@ -1129,6 +1169,14 @@
             </summary>
             <param name="message">The error message that explains the reason for the exception.</param>
             <param name="innerException">The exception that is the cause of the current exception, or a null reference (Nothing in Visual Basic) if no inner exception is specified.</param>
+        </member>
+        <member name="M:CsvHelper.CsvParserException.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+            <summary>
+            Initializes a new instance of the <see cref="T:CsvHelper.CsvParserException"/> class
+            with serialized data.
+            </summary>
+            <param name="info">The <see cref="T:System.Runtime.Serialization.SerializationInfo"/> that holds the serialized object data about the exception being thrown.</param>
+            <param name="context">The <see cref="T:System.Runtime.Serialization.StreamingContext"/> that contains contextual information about the source or destination.</param>
         </member>
         <member name="T:CsvHelper.CsvReader">
             <summary>
@@ -2113,6 +2161,12 @@
             <param name="type">The type of the record.</param>
             <param name="records">The list of records to write.</param>
         </member>
+        <member name="M:CsvHelper.ICsvWriter.WriteRecords(System.Collections.IEnumerable)">
+            <summary>
+            Writes the list of records to the CSV file.
+            </summary>
+            <param name="records">The list of records to write.</param>
+        </member>
         <member name="M:CsvHelper.ICsvWriter.ClearRecordCache``1">
             <summary>
             Clears the record cache for the given type. After <see cref="M:CsvHelper.ICsvWriter.WriteRecord``1(``0)"/> is called the
@@ -2265,6 +2319,12 @@
             <param name="type">The type of the record.</param>
             <param name="records">The list of records to write.</param>
         </member>
+        <member name="M:CsvHelper.CsvWriter.WriteRecords(System.Collections.IEnumerable)">
+            <summary>
+            Writes the list of records to the CSV file.
+            </summary>
+            <param name="records">The list of records to write.</param>
+        </member>
         <member name="M:CsvHelper.CsvWriter.ClearRecordCache``1">
             <summary>
             Clears the record cache for the given type. After <see cref="M:CsvHelper.ICsvWriter.WriteRecord``1(``0)"/> is called the
@@ -2415,6 +2475,14 @@
             </summary>
             <param name="message">The error message that explains the reason for the exception.</param>
             <param name="innerException">The exception that is the cause of the current exception, or a null reference (Nothing in Visual Basic) if no inner exception is specified.</param>
+        </member>
+        <member name="M:CsvHelper.CsvWriterException.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+            <summary>
+            Initializes a new instance of the <see cref="T:CsvHelper.CsvWriterException"/> class
+            with serialized data.
+            </summary>
+            <param name="info">The <see cref="T:System.Runtime.Serialization.SerializationInfo"/> that holds the serialized object data about the exception being thrown.</param>
+            <param name="context">The <see cref="T:System.Runtime.Serialization.StreamingContext"/> that contains contextual information about the source or destination.</param>
         </member>
         <member name="T:CsvHelper.ExceptionHelper">
             <summary>
@@ -2687,6 +2755,14 @@
             </summary>
             <param name="message">The error message that explains the reason for the exception.</param>
             <param name="innerException">The exception that is the cause of the current exception, or a null reference (Nothing in Visual Basic) if no inner exception is specified.</param>
+        </member>
+        <member name="M:CsvHelper.TypeConversion.CsvTypeConverterException.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+            <summary>
+            Initializes a new instance of the <see cref="T:CsvHelper.TypeConversion.CsvTypeConverterException"/> class
+            with serialized data.
+            </summary>
+            <param name="info">The <see cref="T:System.Runtime.Serialization.SerializationInfo"/> that holds the serialized object data about the exception being thrown.</param>
+            <param name="context">The <see cref="T:System.Runtime.Serialization.StreamingContext"/> that contains contextual information about the source or destination.</param>
         </member>
         <member name="T:CsvHelper.TypeConversion.DateTimeConverter">
             <summary>
@@ -3040,6 +3116,28 @@
             <returns>
               <c>true</c> if this instance [can convert from] the specified type; otherwise, <c>false</c>.
             </returns>
+        </member>
+        <member name="T:CsvHelper.TypeConversion.TimeSpanConverter">
+            <summary>
+            Converts a TimeSpan to and from a string.
+            </summary>
+        </member>
+        <member name="M:CsvHelper.TypeConversion.TimeSpanConverter.CanConvertFrom(System.Type)">
+            <summary>
+            Determines whether this instance [can convert from] the specified type.
+            </summary>
+            <param name="type">The type.</param>
+            <returns>
+              <c>true</c> if this instance [can convert from] the specified type; otherwise, <c>false</c>.
+            </returns>
+        </member>
+        <member name="M:CsvHelper.TypeConversion.TimeSpanConverter.ConvertFromString(CsvHelper.TypeConversion.TypeConverterOptions,System.String)">
+            <summary>
+            Converts the string to an object.
+            </summary>
+            <param name="options">The options to use when converting.</param>
+            <param name="text">The string to convert to an object.</param>
+            <returns>The object created from the string.</returns>
         </member>
         <member name="T:CsvHelper.TypeConversion.TypeConverterFactory">
             <summary>
