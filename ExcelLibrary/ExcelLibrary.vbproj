@@ -60,16 +60,15 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="CsvHelper, Version=2.0.0.0, Culture=neutral, PublicKeyToken=8c4959082be5c823, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\CsvHelper.2.3.0\lib\net40-client\CsvHelper.dll</HintPath>
+    <Reference Include="CsvHelper">
+      <HintPath>..\packages\CsvHelper.2.5.0\lib\net35-client\CsvHelper.dll</HintPath>
     </Reference>
-    <Reference Include="LinqDynamic, Version=1.9.5049.17435, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\LinqDynamic.1.9.5049.17435\lib\net40\LinqDynamic.dll</HintPath>
+    <Reference Include="LinqDynamic">
+      <HintPath>..\packages\LinqDynamic.1.9.5205.35168\lib\net35\LinqDynamic.dll</HintPath>
     </Reference>
-    <Reference Include="PocoPropertyData">
-      <HintPath>..\packages\PocoPropertyData.1.0.5126.21759\lib\net40\PocoPropertyData.dll</HintPath>
+    <Reference Include="PocoPropertyData, Version=1.0.5205.34680, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\PocoPropertyData.1.0.5205.34680\lib\net35\PocoPropertyData.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
