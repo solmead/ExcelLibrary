@@ -76,6 +76,7 @@ Public Class CSVFile
             m_Columns = Cols
         End Sub
         Public Function GetCSVLine(ByVal Delimiter As String) As String
+            Dim dbq = """"
             Dim sb As New System.Text.StringBuilder
             Dim s As String
             Dim First As Boolean = True
@@ -85,7 +86,7 @@ Public Class CSVFile
                 Else
                     First = False
                 End If
-                sb.Append("""" & s & """")
+                sb.Append(dbq & s.Replace(dbq, dbq + dbq) & dbq)
             Next
 
             Return sb.ToString
@@ -106,7 +107,6 @@ Public Class CSVFile
     Public Function GetAsCSV() As String
         Dim sb As New System.Text.StringBuilder
         Dim Line As CSVLine
-
         For Each Line In Lines
             sb.AppendLine(Line.GetCSVLine(ColumnDelimiter))
         Next
@@ -133,7 +133,7 @@ Public Class CSVFile
         Dim CSVF As New CSVFile
         CSVF.ColumnDelimiter = ColDelimiter
 
-        Dim parser = New CsvParser(ReadFile, New CsvConfiguration With {.Delimiter = ColDelimiter})
+        Dim parser = New CsvHelper.CsvParser(ReadFile, New CsvConfiguration With {.Delimiter = ColDelimiter})
         While (True)
             Dim line = parser.Read()
 
@@ -255,7 +255,7 @@ Public Class CSVFile
             If hasHeader Then
                 colName = Lines(headerLine).Column(cnt)
             End If
-            If String.IsNullOrWhiteSpace(colName) Then
+            If String.IsNullOrEmpty(colName) Then
                 colName = "Column_" & cnt
             End If
             table.Columns.Add(colName)
