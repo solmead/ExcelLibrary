@@ -21,21 +21,16 @@
 Imports Microsoft.VisualBasic
 Imports System.Xml
 Imports System.Data
+Imports System.IO
 Imports System.Web
 Imports System.Web.UI
 Imports System.Web.UI.WebControls
-
+Imports ClosedXML.Excel
 
 
 Public Class ExcelExport
-    Private Enum CellType
-        None
-        [String]
 
-    End Enum
-    Private TheWorkBook As New XmlDocument
-
-    Private CurrentTable As XmlElement
+    private workbook As XLWorkbook
     Public WorkBookname As String = ""
 
     Public Sub New(ByVal WorkBookname As String)
@@ -53,20 +48,10 @@ Public Class ExcelExport
         AddSheet(Me.WorkBookname, Grid)
     End Sub
     Public Sub AddSheet(ByVal Name As String)
-        Dim Melem As XmlElement
-        Melem = TheWorkBook.CreateElement("Worksheet")
-        TheWorkBook.DocumentElement.AppendChild(Melem)
-        Melem.SetAttribute("Name", "urn:schemas-microsoft-com:office:spreadsheet", Name)
-        CurrentTable = TheWorkBook.CreateElement("Table")
-        Melem.AppendChild(CurrentTable)
+        workbook.Worksheets.Add(name)
     End Sub
     Public Sub AddSheet(ByVal Name As String, ByVal Tb As DataTable)
-        AddSheet(Name)
-        AddSheetHeader(Tb)
-        Dim R As DataRow
-        For Each R In Tb.Rows
-            AddRow(R)
-        Next
+        workbook.Worksheets.Add(Tb, name)
     End Sub
     Public Sub AddSheet(ByVal Name As String, ByVal Grid As GridView)
         Grid.DataBind()
@@ -96,161 +81,27 @@ Public Class ExcelExport
         Next
         AddSheet(Name, DT)
     End Sub
-    Public Sub ThrowResponse()
-        Dim Response As HttpResponse = HttpContext.Current.Response
-        Response.Clear()
-        Response.ContentType = "application/vnd.ms-excel"
-
-        Response.AppendHeader("Content-Disposition", "attachment; filename=" & WorkBookname & ".xls")
-        Response.BinaryWrite(System.Text.Encoding.UTF8.GetBytes(GetExcelData))
+    public sub SaveWorkbook(file As FileInfo)
+        workbook.SaveAs(file.FullName)
+    End sub
+    Public Sub SaveWorkbook(Response As HttpResponse)
+        
+        Response.ContentType = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+        Response.AddHeader("content-disposition", "attachment;filename=""" & WorkBookname & ".xlsx" & """")
+        Using memoryStream = New MemoryStream()
+            workbook.SaveAs(memoryStream)
+            memoryStream.WriteTo(Response.OutputStream)
+            memoryStream.Close()
+        end using
+        
         Response.End()
     End Sub
-    Public Function GetExcelData() As String
-        Dim tstr As String = ""
-        tstr = "<?xml version=""1.0""?>"
-        tstr = tstr & "<?mso-application progid=""Excel.Sheet""?>"
-        Return tstr & TheWorkBook.DocumentElement.OuterXml
-    End Function
-    Private Function DataElem(ByVal Name As String, ByVal Value As String) As XmlElement
-        Dim Melem As XmlElement = TheWorkBook.CreateElement(Name)
-        Melem.InnerText = Value
-        Return Melem
-    End Function
+    
     Private Sub SetupExcel(ByVal Name As String)
-        '        <?xml version="1.0"?>
-        '<?mso-application progid="Excel.Sheet"?>
-        Dim Melem As XmlElement
-        Melem = TheWorkBook.CreateElement("Workbook")
-        Melem.SetAttribute("xmlns", "urn:schemas-microsoft-com:office:spreadsheet")
-        Melem.SetAttribute("xmlns:o", "urn:schemas-microsoft-com:office:office")
-        Melem.SetAttribute("xmlns:x", "urn:schemas-microsoft-com:office:excel")
-        Melem.SetAttribute("xmlns:ss", "urn:schemas-microsoft-com:office:spreadsheet")
-        Melem.SetAttribute("xmlns:html", "http://www.w3.org/TR/REC-html40")
-        TheWorkBook.AppendChild(Melem)
-
-        Dim Melem2 As XmlElement
-        Melem2 = TheWorkBook.CreateElement("DocumentProperties")
-        Melem.AppendChild(Melem2)
-
-        Melem2.SetAttribute("xmlns", "urn:schemas-microsoft-com:office:office")
-        Melem2.AppendChild(DataElem("Author", ""))
-        Melem2.AppendChild(DataElem("LastAuthor", ""))
-        Melem2.AppendChild(DataElem("Created", Now))
-        Melem2.AppendChild(DataElem("LastSaved", Now))
-        Melem2.AppendChild(DataElem("Company", ""))
-        Melem2.AppendChild(DataElem("Version", "12.00"))
-
-
-        Melem2 = TheWorkBook.CreateElement("Styles")
-        Melem.AppendChild(Melem2)
-
-
-        Dim Melem3 As XmlElement
-        Dim Melem4 As XmlElement
-        Dim Melem5 As XmlElement
-        Melem3 = TheWorkBook.CreateElement("Style")
-        Melem2.AppendChild(Melem3)
-        Melem3.SetAttribute("ID", "urn:schemas-microsoft-com:office:spreadsheet", "Default")
-        Melem3.SetAttribute("Name", "urn:schemas-microsoft-com:office:spreadsheet", "Normal")
-
-        Melem4 = TheWorkBook.CreateElement("Alignment")
-        Melem3.AppendChild(Melem4)
-        Melem4.SetAttribute("Vertical", "urn:schemas-microsoft-com:office:spreadsheet", "Bottom")
-        Melem3.AppendChild(DataElem("Borders", ""))
-        Melem3.AppendChild(DataElem("Font", ""))
-        Melem3.AppendChild(DataElem("Interior", ""))
-        Melem3.AppendChild(DataElem("NumberFormat", ""))
-        Melem3.AppendChild(DataElem("Protection", ""))
-
-        Melem3 = TheWorkBook.CreateElement("Style")
-        Melem2.AppendChild(Melem3)
-        Melem3.SetAttribute("ID", "urn:schemas-microsoft-com:office:spreadsheet", "header")
-
-        Melem4 = TheWorkBook.CreateElement("Alignment")
-        Melem3.AppendChild(Melem4)
-        Melem4.SetAttribute("Horizontal", "urn:schemas-microsoft-com:office:spreadsheet", "Center")
-        Melem4.SetAttribute("Vertical", "urn:schemas-microsoft-com:office:spreadsheet", "Bottom")
-
-        Melem4 = TheWorkBook.CreateElement("Borders")
-        Melem3.AppendChild(Melem4)
-
-        Melem5 = TheWorkBook.CreateElement("Border")
-        Melem4.AppendChild(Melem5)
-        Melem5.SetAttribute("Position", "urn:schemas-microsoft-com:office:spreadsheet", "Bottom")
-        Melem5.SetAttribute("LineStyle", "urn:schemas-microsoft-com:office:spreadsheet", "Continuous")
-        Melem5.SetAttribute("Weight", "urn:schemas-microsoft-com:office:spreadsheet", "2")
-
-        Melem4 = TheWorkBook.CreateElement("Font")
-        Melem3.AppendChild(Melem4)
-        Melem4.SetAttribute("Family", "urn:schemas-microsoft-com:office:excel", "Swiss")
-        Melem4.SetAttribute("Bold", "urn:schemas-microsoft-com:office:spreadsheet", "1")
-        Melem4 = TheWorkBook.CreateElement("Interior")
-        Melem3.AppendChild(Melem4)
-        Melem4.SetAttribute("Color", "urn:schemas-microsoft-com:office:spreadsheet", "#99CCFF")
-        Melem4.SetAttribute("Pattern", "urn:schemas-microsoft-com:office:spreadsheet", "Solid")
-
+        workbook = new XLWorkbook()
+        workbook.Properties.Title = Name
     End Sub
-    Private Function GetHeaderCell(ByVal Value As String) As XmlElement
-        Dim Cell As XmlElement
-        Dim Data As XmlElement
-
-        Cell = TheWorkBook.CreateElement("Cell")
-        Cell.SetAttribute("StyleID", "urn:schemas-microsoft-com:office:spreadsheet", "header")
-        Data = DataElem("Data", Value)
-        Data.SetAttribute("Type", "urn:schemas-microsoft-com:office:spreadsheet", "String")
-        Cell.AppendChild(Data)
-        Return Cell
-    End Function
-    Private Function GetCell(ByVal Value As String, ByVal Type As CellType) As XmlElement
-        Dim Cell As XmlElement
-        Dim Data As XmlElement
-
-        Cell = TheWorkBook.CreateElement("Cell")
-        Data = DataElem("Data", Value)
-        If Type <> CellType.None Then
-            Data.SetAttribute("Type", "urn:schemas-microsoft-com:office:spreadsheet", Type.ToString)
-        Else
-            Data.SetAttribute("Type", "urn:schemas-microsoft-com:office:spreadsheet", "")
-        End If
-        Cell.AppendChild(Data)
-        Return Cell
-    End Function
-
-    Public Sub AddSheetHeader(ByVal DT As DataTable)
-        Dim Row As XmlElement = TheWorkBook.CreateElement("Row")
-        CurrentTable.AppendChild(Row)
-
-        Dim DF As DataColumn
-        For Each DF In DT.Columns
-            Row.AppendChild(GetHeaderCell(DF.ColumnName))
-        Next
-    End Sub
-    Public Sub AddRow(ByVal DR As DataRow)
-        Dim Row As XmlElement = TheWorkBook.CreateElement("Row")
-        CurrentTable.AppendChild(Row)
-        Dim DC As DataColumn
-        For Each DC In DR.Table.Columns
-            Dim Type As CellType
-            Type = GetCellType(DC.DataType)
-            If DR.IsNull(DC.ColumnName) Then
-                Row.AppendChild(GetCell("", Type))
-            Else
-                Dim s As String = ""
-                Try
-                    s = DR(DC.ColumnName).ToString
-                Catch ex As Exception
-
-                End Try
-                Row.AppendChild(GetCell(s, Type))
-            End If
-        Next
-    End Sub
-    Private Function GetCellType(ByVal Type As System.Type) As CellType
-
-
-
-        Return CellType.String
-    End Function
+    
 
     Private Shared Function TreeControl(ByVal Con As Control) As String
         Dim Tstr As String = ""
@@ -299,23 +150,15 @@ Public Class ExcelExport
         Return TheContent
     End Function
 
-    Public Shared Sub ThrowResponse(ByVal WorkBookName As String, ByVal DT As DataTable)
+    Public Shared Sub RespondWith(ByVal WorkBookName As String, ByVal DT As DataTable)
         Dim EE As New ExcelExport(WorkBookName, DT)
         Dim Response As HttpResponse = HttpContext.Current.Response
-        Response.Clear()
-        Response.ContentType = "application/vnd.ms-excel"
-        Response.AppendHeader("Content-Disposition", "attachment; filename=" & EE.WorkBookname & ".xls")
-        Response.BinaryWrite(System.Text.Encoding.UTF8.GetBytes(EE.GetExcelData))
-        Response.End()
+        EE.SaveWorkbook(Response)
     End Sub
-    Public Shared Sub ThrowResponse(ByVal WorkBookName As String, ByVal Grid As GridView)
+    Public Shared Sub RespondWith(ByVal WorkBookName As String, ByVal Grid As GridView)
         Dim EE As New ExcelExport(WorkBookName, Grid)
         Dim Response As HttpResponse = HttpContext.Current.Response
-        Response.Clear()
-        Response.ContentType = "application/vnd.ms-excel"
-        Response.AppendHeader("Content-Disposition", "attachment; filename=" & EE.WorkBookname & ".xls")
-        Response.BinaryWrite(System.Text.Encoding.UTF8.GetBytes(EE.GetExcelData))
-        Response.End()
+        EE.SaveWorkbook(Response)
     End Sub
 End Class
 
