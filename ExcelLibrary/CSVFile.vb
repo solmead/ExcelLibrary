@@ -23,7 +23,7 @@ Imports CsvHelper.Configuration
 Imports CsvHelper
 Imports Microsoft.VisualBasic
 Imports System.IO
-Imports System.Linq.Dynamic
+'Imports System.Linq.Dynamic
 Imports Microsoft.VisualBasic.FileIO.TextFieldParser
 
 Public Class CSVFile
@@ -133,7 +133,7 @@ Public Class CSVFile
         Dim CSVF As New CSVFile
         CSVF.ColumnDelimiter = ColDelimiter
 
-        Dim parser = New CsvHelper.CsvParser(ReadFile, New CsvConfiguration With {.Delimiter = ColDelimiter})
+        Dim parser = New CsvHelper.CsvParser(ReadFile, New Configuration With {.Delimiter = ColDelimiter})
         While (True)
             Dim line = parser.Read()
 
@@ -222,6 +222,8 @@ Public Class CSVFile
     End Function
     Public Shared Function LoadFromIEnumerable(ByVal list As IEnumerable, Optional ByVal HasHeader As Boolean = True, Optional useDisplayName As Boolean = False) As CSVFile
         Dim olist As List(Of Object) = (From i In list Select i).ToList
+
+        
         Return LoadFromDataTable(olist.ToDataTable(useDisplayName), HasHeader)
     End Function
     Public Shared Function LoadFromDataTable(ByVal DT As DataTable, Optional ByVal HasHeader As Boolean = True) As CSVFile
