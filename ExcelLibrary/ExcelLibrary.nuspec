@@ -11,8 +11,19 @@
     <iconUrl>https://github.com/solmead/ExcelLibrary</iconUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>$description$</description>
-    <releaseNotes>Initial Release</releaseNotes>
     <copyright>Copyright 2013</copyright>
     <tags></tags>
+    <releaseNotes>
+      The ExcelLibrary library has been renamed to Utilities.ExcelLibrary.
+      This package is empty, but will install the new packages.
+    </releaseNotes>
+    <dependencies>
+      <group>
+        <dependency id="Utilities.ExcelLibrary" version="6.1.0" />
+      </group>
+    </dependencies>
   </metadata>
+  <files>
+    <file src="ExcelLibrary/readme.txt" target=""/>
+  </files>
 </package>

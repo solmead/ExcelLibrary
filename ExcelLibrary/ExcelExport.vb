@@ -84,6 +84,18 @@ Public Class ExcelExport
     public sub SaveWorkbook(file As FileInfo)
         workbook.SaveAs(file.FullName)
     End sub
+    Public Sub SaveWorkbook(stream As Stream)
+        
+        'Response.ContentType = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+        'Response.AddHeader("content-disposition", "attachment;filename=""" & WorkBookname & ".xlsx" & """")
+        'Using memoryStream = New MemoryStream()
+            workbook.SaveAs(stream)
+            'memoryStream.WriteTo(Response.OutputStream)
+            'memoryStream.Close()
+        'end using
+        
+        'Response.End()
+    End Sub
     Public Sub SaveWorkbook(Response As HttpResponse)
         
         Response.ContentType = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
